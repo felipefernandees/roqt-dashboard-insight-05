@@ -1,0 +1,113 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ROQT-inspired Dashboard Design System */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+@layer base {
+  :root {
+    /* Dark mode base colors */
+    --background: 0 0% 0%; /* Pure black */
+    --foreground: 210 40% 98%;
+
+    --card: 220 13% 11%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 220 13% 11%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 181 67% 52%; /* #4FBDBA - teal/greenish blue */
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 38 100% 65%; /* #FFB84D - warm gold */
+    --secondary-foreground: 220 13% 9%;
+
+    --muted: 0 0% 18%; /* #2A2A2A - neutral gray */
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 0 0% 12%; /* #1E1E1E - darker neutral gray */
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 73% 69%; /* #FF6B6B - soft coral */
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 220 13% 20%;
+    --input: 0 0% 18%; /* #2A2A2A */
+    --ring: 210 40% 98%;
+
+    /* Dashboard accent colors */
+    --success: 88 64% 67%; /* #7ED957 - soft green */
+    --success-foreground: 220 13% 9%;
+    
+    --warning: 38 100% 65%; /* #FFB84D - warm gold */
+    --warning-foreground: 220 13% 9%;
+    
+    --danger: 0 73% 69%; /* #FF6B6B - soft coral */
+    --danger-foreground: 210 40% 98%;
+
+    /* Chart colors */
+    --chart-1: 181 67% 52%; /* #4FBDBA - primary teal */
+    --chart-2: 88 64% 67%; /* #7ED957 - soft green */
+    --chart-3: 38 100% 65%; /* #FFB84D - warm gold */
+    --chart-4: 0 73% 69%; /* #FF6B6B - soft coral */
+    --chart-5: 220 13% 40%; /* neutral gray for additional data */
+
+    --radius: 0.75rem;
+
+    --sidebar-background: 220 13% 9%;
+    --sidebar-foreground: 210 40% 98%;
+    --sidebar-primary: 210 40% 98%;
+    --sidebar-primary-foreground: 220 13% 9%;
+    --sidebar-accent: 220 13% 15%;
+    --sidebar-accent-foreground: 210 40% 98%;
+    --sidebar-border: 220 13% 20%;
+    --sidebar-ring: 210 40% 98%;
+  }
+
+  .dark {
+    /* Already using dark mode as base */
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-inter;
+  }
+  
+  /* Custom hover effects */
+  .hover-overlay {
+    @apply transition-all duration-200 hover:bg-white/[0.05] hover:shadow-sm;
+  }
+  
+  .hover-glow {
+    @apply transition-all duration-200 hover:shadow-lg hover:shadow-primary/20;
+  }
+  
+  .sidebar-item {
+    @apply relative transition-all duration-200 hover:bg-white/[0.06];
+  }
+  
+  /* Scrollbar styling for dark theme */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: hsl(var(--muted));
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--border));
+    border-radius: 4px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--muted-foreground));
+  }
+}
