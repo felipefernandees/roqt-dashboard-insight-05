@@ -50,6 +50,7 @@ interface FinanceData {
     mes: string;
     receita: number;
     despesa: number;
+    lucro: number;
   }>;
 }
 
@@ -127,7 +128,8 @@ export default function FinanceiroDashboard() {
         linha_do_tempo: financeiroData.linha_do_tempo?.map((item: any) => ({
           mes: item.mes || item.name || "Mês",
           receita: parseValue(item.receita),
-          despesa: parseValue(item.despesa || item.despesas)
+          despesa: parseValue(item.despesa || item.despesas),
+          lucro: parseValue(item.lucro)
         })) || []
       };
       
@@ -166,7 +168,7 @@ export default function FinanceiroDashboard() {
       default:
         return financeData.linha_do_tempo.map(item => ({
           mes: item.mes,
-          lucro: item.receita - item.despesa
+          lucro: item.lucro
         }));
     }
   };
