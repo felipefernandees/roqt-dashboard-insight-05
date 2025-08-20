@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
 import { NavLink, useLocation } from "react-router-dom";
-import { Users, Package, DollarSign, Menu, X, LogOut } from "lucide-react";
+import { Users, Package, DollarSign, Menu, X, LogOut, RefreshCw, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useDashboardData } from "@/hooks/useDashboardData";
 import { useAuth } from "@/hooks/useAuth";
+import { useGeneralUpdate } from "@/hooks/useGeneralUpdate";
 import logoImage from "/lovable-uploads/4e0b2a9a-1de9-4d20-9154-eda70d881eca.png";
 
 interface DashboardLayoutProps {
@@ -37,6 +38,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
   const location = useLocation();
   const { fetchDashboardData } = useDashboardData();
   const { logout } = useAuth();
+  const { isUpdating, isSuccess, elapsedTime, triggerUpdate } = useGeneralUpdate();
 
   // Load comunidade data on first visit
   useEffect(() => {
@@ -111,8 +113,43 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
             ))}
           </nav>
 
-          {/* Logout Button */}
+          {/* Update and Logout Buttons */}
           <div className="border-t border-border p-4 space-y-2">
+            {/* General Update Button */}
+            <Button
+              onClick={triggerUpdate}
+              disabled={isUpdating}
+              variant="ghost"
+              size="sm"
+              className={cn(
+                "w-full flex items-center gap-2 transition-all duration-200",
+                isCollapsed ? "justify-center px-2" : "justify-start px-3",
+                isSuccess 
+                  ? "bg-green-500/10 text-green-600 hover:bg-green-500/20" 
+                  : "hover:bg-accent hover:text-accent-foreground"
+              )}
+            >
+              {isUpdating ? (
+                <RefreshCw className="h-3 w-3 flex-shrink-0 animate-spin" />
+              ) : isSuccess ? (
+                <Check className="h-3 w-3 flex-shrink-0" />
+              ) : (
+                <RefreshCw className="h-3 w-3 flex-shrink-0" />
+              )}
+              {!isCollapsed && (
+                <div className="flex items-center gap-1">
+                  <span className="text-xs">
+                    {isSuccess ? "Atualizado" : "Atualizar"}
+                  </span>
+                  {isUpdating && (
+                    <span className="text-xs opacity-60">
+                      {elapsedTime}s
+                    </span>
+                  )}
+                </div>
+              )}
+            </Button>
+
             <Button
               onClick={logout}
               variant="ghost"
